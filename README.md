@@ -2,7 +2,7 @@
 An introduction to Solidity with simple examples.
 
 ## How to set up
-For developing the examples of this repository I've use [https://remix.ethereum.org/](Remix).
+For developing the examples of this repository I've use [Remix](https://remix.ethereum.org/).
 
 Copy the files to Remix IDE, compile it and deploy it to check the funcionalities.
 
