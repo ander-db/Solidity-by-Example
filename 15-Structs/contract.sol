@@ -1,37 +1,47 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "./enum.sol";
+contract Todos {
+    struct Todo {
+        string text;
+        bool completed;
+    }
 
-contract Enum {
+    // An array of 'Todo' structs
+    Todo[] public todos;
 
-  // Default value is the first element listed
-  // in definition of the type, in this case 
-  // "Pending".
-  Status public status;
+    function create(string calldata _text) public {
+        // 3 ways to initialize a struct
+        // - calling it like a function
+        todos.push(Todo(_text, false));
 
-  // Returns uint
-  // Pending  -> 0
-  // Shipped  -> 1
-  // Accepted -> 2
-  // Rejected -> 3
-  // Canceled -> 4
-  function get() public view returns (Status) {
-    return status;
-  }
+        // key value mapping
+        todos.push(Todo({text: _text, completed: false}));
 
-  // Update status by passing uint into input
-  function set(Status _status) public {
-    status = _status;
-  }
+        // initialize an empty struct and then update it
+        Todo memory todo;
+        todo.text = _text;
+        // todo.completed initialized to false
 
-  // You can update to a specific enum like this
-  function cancel() public {
-    status = Status.Canceled;
-  }
+        todos.push(todo);
+    }
 
-  // delete reset the enum to its first value, 0
-  function reset() public {
-    dete status;
-  }
+    // Solidity automatically created a getter for 'todos' so
+    // you don't actually need this function.
+    function get(uint _index) public view returns (string memory text, bool completed) {
+        Todo storage todo = todos[_index];
+        return (todo.text, todo.completed);
+    }
+
+    // update text
+    function updateText(uint _index, string calldata _text) public {
+        Todo storage todo = todos[_index];
+        todo.text = _text;
+    }
+
+    // update completed
+    function toggleCompleted(uint _index) public {
+        Todo storage todo = todos[_index];
+        todo.completed = !todo.completed;
+    }
 }
